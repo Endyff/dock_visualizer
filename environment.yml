@@ -1,15 +1,15 @@
 name: dock_visualizer
 channels:
+  - conda-forge
   - defaults
 dependencies:
   - python
   - streamlit
-  - conda-forge::rdkit
+  - rdkit
   - py3dmol
   - ipython_genutils
   - spyrmsd
   - pip
-  - stmol
   - pip:
     - posebusters
     - stmol
