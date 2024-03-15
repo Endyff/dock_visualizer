@@ -9,39 +9,12 @@ from posebusters.tools.loading import safe_load_mol
 
 
 def calculate_posebusters(mol_cond: Molecule, mol_true: Molecule, mol_pred: Molecule, mode='mol',**kwargs):
-    # if not prediction_str:
-    #     st.write('Please upload prediction sdf')
-    #     return
-    # if not protein_str and mode in ['redock', 'dock']:
-    #     st.write('Please upload protein pdb')
-    #     return
-    # if not ground_truth_str and mode in ['redock']:
-    #     st.write('Please upload ground truth sdf')
-    #     return
-
-
-    # print('suuup')
-    # # TODO: don't save and load to file, transform string directly to rdkit mol
-    # print(len(str_true), len(str_cond), len(str_pred))
-    # mol_true = Chem.SDMolSupplier()
-    # mol_true.SetData(str(str_true))
-    # mol_true = mol_true[0]
-    # print(mol_true)
-    # mol_pred = Chem.SDMolSupplier()
-    # mol_pred.SetData(str(str_pred))
-    # mol_pred = mol_pred[0]
-    # print(mol_pred)
-    # mol_cond = Chem.rdmolfiles.MolFromPDBBlock(str(str_cond))
-    # print(mol_true, mol_pred, mol_cond)
-
-
-    # pb = PoseBusters(mode)
-    # output = pb.bust(mol_pred=mol_pred, mol_true=mol_true, mol_cond=mol_cond)
-
-
-    path_true = Path('tmp/ground_truth.sdf')
-    path_pred = Path('tmp/prediction.sdf')
-    path_cond = Path('tmp/protein.pdb')
+   
+    tmp = Path('tmp')
+    tmp.mkdir(exist_ok=True)
+    path_true = tmp / Path('ground_truth.sdf')
+    path_pred = tmp / Path('prediction.sdf')
+    path_cond = tmp / Path('protein.pdb')
 
     with open(path_true, 'w') as f:
         f.write(str(mol_true))
