@@ -4,15 +4,10 @@ from spyrmsd.rmsd import symmrmsd
 
 class Atom(dict):
     def __init__(self,):
-        # self["style"] = {}
         pass
 
     def dist(self, other):
         return ((self["x"] - other["x"])**2 + (self["y"] - other["y"])**2 + (self["z"] - other["z"])**2)**0.5
-    
-    def set_style(self, style:dict):
-        self.add_style(style)
-        # self["style"] = style
 
     def add_style(self, style:dict):
         self["style"] = {**self["style"], **style} if "style" in self else style
@@ -52,10 +47,6 @@ class Molecule(list):
         mean_y = sum([a["y"] for a in self.atoms])/len(self.atoms)
         mean_z = sum([a["z"] for a in self.atoms])/len(self.atoms)
         return {"x": mean_x, "y": mean_y, "z": mean_z}
-
-    def set_style(self, style:dict):
-        for at in self.atoms:
-            at.set_style(style)
 
     def get_coords(self):
         return np.asarray([[a["x"], a["y"], a["z"]] for a in self.atoms])

@@ -5,10 +5,8 @@ class PDBAtom(Atom):
         super().__init__()
 
         self["type"] = line[0:6].strip()
-        # self["idx"] = line[6:11].strip()
         self["idx"] = str(idx)
         self["name"] = line[12:16].strip()
-        # self['altloc'] = line[17]
         self["resn"] = line[17:20].strip()
         self["insertion"] = line[20:22].strip()
         self["resid"] = int(int(line[22:26]))
@@ -41,12 +39,11 @@ class PDBMolecule(Molecule):
         super().__init__()
         filter_atoms = [line for line in file.split('\n') if "ATOM" == line[:4] and line[16] in [" ", "A"]]
         self.atoms = [PDBAtom(line, i) for i, line in enumerate(filter_atoms, start=1)]
-        # self.atoms = [PDBAtom(line) for line in file.split('\n') if "ATOM" == line[:4]]
+
     def __str__(self):
         outstr = ""
         for at in self.atoms:
             outstr += str(at)
-
         return outstr
     
     def select_residue(self, atom: PDBAtom):

@@ -25,32 +25,27 @@ def calculate_posebusters(mol_cond: Molecule, mol_true: Molecule, mol_pred: Mole
 
     pb = PoseBusters(mode)
     output = pb.bust(mol_pred=path_pred, mol_true=path_true, mol_cond=path_cond)
-    # print(output)
+
     fail_checks = []
-    # print(output.T)
     for c in output.columns:
         try:
             if output[c].values[0] == False:
                 fail_checks.append(f'{c}\n')
         except Exception as e:
-            print(e)
+            print(f'failed to retrieve output of check {c}, error: \n {e}')
             pass
     return fail_checks
 
-def check_distance(str_cond, str_pred, radius_type):
-
-    # mol_true = Path('tmp/ground_truth.sdf')
+def check_distance(str_cond, str_pred, radius_type='wdw'):
     mol_pred = Path('tmp/prediction.sdf')
     mol_cond = Path('tmp/protein.pdb')
 
-    # with open(mol_true, 'w') as f:
-    #     f.write(str(str_true))
     with open(mol_pred, 'w') as f:
         f.write(str(str_pred))
     with open(mol_cond, 'w') as f:
         f.write(str(str_cond))
     
     str_cond = safe_load_mol(mol_cond)
-    # str_true = safe_load_mol(mol_true)
     str_pred = safe_load_mol(mol_pred)
+
     return check_intermolecular_distance(str_pred, str_cond, radius_type)

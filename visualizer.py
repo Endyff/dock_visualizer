@@ -54,14 +54,9 @@ if df is not None:
     st.write(f'Center of mass RMSD: {center_rmsd:.2f} Å')
 
     rmsd = mol_pred.rmsd(mol_true)
-    if type(rmsd) == float:
-        st.write(f'RMSD: {center_rmsd:.2f} Å')
+    if isinstance(rmsd, float):
+        st.write(f'RMSD: {rmsd:.2f} Å')
     else:
-        c1 = Counter([a['element'] for a in mol_pred.atoms])
-        c2 = Counter([a['element'] for a in mol_pred.atoms])
-        err_msg = " Check if the molecules have the same number of atoms" if c1 != c2 else ""
-        st.write(f'RMSD calculation failed.{err_msg}')
-        
         print(f'RMSD calculation failed, error message: {rmsd}')
 
     kwargs = {}
